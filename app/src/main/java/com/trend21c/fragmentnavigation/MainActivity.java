@@ -5,17 +5,17 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity implements BaseFragment.OnFragmentInteractionListener, FragmentController.RootFragmentListener {
+public class MainActivity extends AppCompatActivity implements BaseFragment.OnFragmentInteractionListener, FragmentNavigation.RootFragmentListener {
 
     TabLayout mTabLayout;
-    FragmentController mFragmentController;
+    FragmentNavigation mFragmentNavigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mFragmentController = new FragmentController(this, getSupportFragmentManager(), R.id.container);
+        mFragmentNavigation = new FragmentNavigation(this, getSupportFragmentManager(), R.id.container);
 
         mTabLayout = findViewById(R.id.tablayout);
         mTabLayout.addTab(mTabLayout.newTab().setText("tab1"));
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements BaseFragment.OnFr
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                mFragmentController.switchTab(tab.getPosition());
+                mFragmentNavigation.switchTab(tab.getPosition());
             }
 
             @Override
@@ -41,15 +41,15 @@ public class MainActivity extends AppCompatActivity implements BaseFragment.OnFr
             }
         });
 
-        mFragmentController.switchTab(0);
+        mFragmentNavigation.switchTab(0);
     }
 
     @Override
     public void onBackPressed() {
-        if (mFragmentController.isRootFragment()) {
+        if (mFragmentNavigation.isRootFragment()) {
             super.onBackPressed();
         } else {
-            mFragmentController.popFragment();
+            mFragmentNavigation.popFragment();
         }
     }
 
@@ -60,6 +60,6 @@ public class MainActivity extends AppCompatActivity implements BaseFragment.OnFr
 
     @Override
     public void onFragmentPush(Fragment fragment) {
-        mFragmentController.pushFragment(fragment);
+        mFragmentNavigation.pushFragment(fragment);
     }
 }

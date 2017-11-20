@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Created by kevin on 2017. 10. 26..
  */
 
-public class FragmentController {
+public class FragmentNavigation {
 
     private RootFragmentListener mRootFragmentListener;
     private FragmentManager mFragmentManager;
@@ -20,7 +20,7 @@ public class FragmentController {
     private AtomicInteger mCounter;
     private int mSelectedTabIndex;
 
-    public FragmentController(RootFragmentListener rootFragmentListener, FragmentManager fragmentManager, int containerId) {
+    public FragmentNavigation(RootFragmentListener rootFragmentListener, FragmentManager fragmentManager, int containerId) {
         this.mRootFragmentListener = rootFragmentListener;
         this.mFragmentManager = fragmentManager;
         this.mContainerId = containerId;
@@ -110,7 +110,7 @@ public class FragmentController {
         }
     }
 
-    interface RootFragmentListener {
+    public interface RootFragmentListener {
         Fragment getRootFragment(int index);
     }
 }
